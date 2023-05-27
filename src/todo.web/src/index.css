@@ -1,0 +1,30 @@
+.appContainer {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-areas:
+    "upper1 upper2 upper3"
+    "middle1 middle2 middle3"
+    "lower1 lower2 lower3";
+    height: 100vh;
+    width: 100vw;
+    margin-top: 5%;
+}
+
+.todoList {
+    grid-area: upper2 / middle2 / middle2 / middle2;
+    text-align: center;
+    border: 2px solid brown;
+}
+
+.tasksList {
+    margin-top: 2%;
+    width: 50%;
+    margin-left: 25%;
+
+}
+
+.task {
+    background-color: aquamarine;
+    border: 1px solid black;
+    margin: 2%;
+}

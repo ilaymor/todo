@@ -1,6 +1,8 @@
+const Task = require('../models/taskModel');
+
 getTasks = async (req, res) => {
-    res.status(200);
-    res.send("this are your tasks!")
+    const tasks = await Task.find();
+    res.status(200).send(tasks);
 }
 
 postTask = async (req, res) => {
@@ -10,18 +12,36 @@ postTask = async (req, res) => {
         throw new Error('text field in body cannot be empty');
 
     }
-    res.status(200);
-    res.send("you posted a task!")
+
+    const task = await Task.create({
+        text: text,
+    });
+
+    res.status(200).send(task);
 }
 
 updateTask = async (req, res) => {
-    res.status(200);
-    res.send("you updated a task!")
+    const taskId = req.params.id;
+    // todo: validate req.body
+    const updatedTask = await Task.findByIdAndUpdate(taskId, req.body, {new: true});
+    if (!updatedTask) {
+        res.status(404);
+        throw new Error('Task not found');
+      }
+
+    res.status(200).send(updatedTask);
 }
 
 deleteTask = async (req, res) => {
-    res.status(200);
-    res.send("you deleted a task!")
+    const taskId = req.params.id;
+    // todo: validate req.body
+    const deleteTask = await Task.findByIdAndDelete(taskId);
+    if (!deleteTask) {
+        res.status(404);
+        throw new Error('Task not found');
+      }
+
+    res.status(200).send(deleteTask);
 }
 
 module.exports = {
